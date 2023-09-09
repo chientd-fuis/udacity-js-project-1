@@ -4,6 +4,6 @@ import imageApi from './api/imageApi';
 
 const routes: Router = express.Router();
 
-routes.use('/api/image', imageApi);
+routes.use('/api/images', imageApi);
 
 export default routes;

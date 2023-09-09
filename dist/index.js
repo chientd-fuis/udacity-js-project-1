@@ -13,3 +13,4 @@ app.use(routes_1.default);
 app.listen(port, () => {
   console.log('listening on port ' + port);
 });
+exports.default = app;

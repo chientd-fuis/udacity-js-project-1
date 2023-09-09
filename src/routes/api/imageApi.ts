@@ -27,7 +27,7 @@ imageApi.get('/', async (req: Request, res: Response) => {
       res.status(200).contentType('jpg').send(resizedImage);
     })
     .catch((e) => {
-      console.log('ERROR: ' + e);
+      console.log(e);
       res.status(500).send('Error occured when processing the image');
     });
 });

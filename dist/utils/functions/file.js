@@ -55,7 +55,7 @@ const resize = (image) =>
     )}`;
     const file = yield promises_1.default.readFile(fullPath).catch(() => null);
     if (!file) {
-      return Promise.reject();
+      return Promise.reject('file not found!!');
     }
     const imageBuffer = yield (0, sharp_1.default)(file)
       .resize(image.width, image.height)
@@ -63,15 +63,18 @@ const resize = (image) =>
       .toBuffer()
       .catch(() => null);
     if (!imageBuffer) {
-      return Promise.reject();
+      return Promise.reject('Can not resize image!!');
     }
     return promises_1.default
       .writeFile(thumbPath, imageBuffer)
       .then(() => imageBuffer)
-      .catch(() => Promise.reject());
+      .catch(() => Promise.reject('Can not write file!!'));
   });
 exports.resize = resize;
 const getImagePath = (image) => {
+  if (!image) {
+    return '';
+  }
   return `${path_1.default.resolve(
     __dirname,
     `${constants_1.FULL_IMAGES_PATH}/${image.filename}${constants_1.JPG_EXTENSION}`,

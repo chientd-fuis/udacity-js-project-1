@@ -21,7 +21,7 @@ export const resize = async (image: ImageInformation): Promise<Buffer> => {
   const file: Buffer | null = await fs.readFile(fullPath).catch(() => null);
 
   if (!file) {
-    return Promise.reject();
+    return Promise.reject('file not found!!');
   }
 
   const imageBuffer: Buffer | null = await sharp(file)
@@ -31,16 +31,19 @@ export const resize = async (image: ImageInformation): Promise<Buffer> => {
     .catch(() => null);
 
   if (!imageBuffer) {
-    return Promise.reject();
+    return Promise.reject('Can not resize image!!');
   }
 
   return fs
     .writeFile(thumbPath, imageBuffer)
     .then(() => imageBuffer)
-    .catch(() => Promise.reject());
+    .catch(() => Promise.reject('Can not write file!!'));
 };
 
 export const getImagePath = (image: ImageInformation): string => {
+  if (!image) {
+    return '';
+  }
   return `${path.resolve(
     __dirname,
     `${FULL_IMAGES_PATH}/${image.filename}${JPG_EXTENSION}`,

@@ -10,13 +10,13 @@ export const validateImage = async (
   image: ImageInformationRequest,
 ): Promise<Error | null> => {
   if (!image.filename) {
-    return { code: 404, message: 'filename is missing!!!' };
+    return { code: 400, message: 'filename is missing!!!' };
   }
   if (!image.width) {
-    return { code: 404, message: 'width is missing!!!' };
+    return { code: 400, message: 'width is missing!!!' };
   }
   if (!image.height) {
-    return { code: 404, message: 'height is missing!!!' };
+    return { code: 400, message: 'height is missing!!!' };
   }
   const img = {
     filename: image.filename,
@@ -26,7 +26,7 @@ export const validateImage = async (
 
   const isExist: boolean = await fs.existsSync(getImagePath(img));
   if (!isExist) {
-    return { code: 400, message: 'filename is invalid!!!' };
+    return { code: 404, message: 'filename is not exist!!!' };
   }
 
   if (Number.isNaN(Number(image.width))) {
