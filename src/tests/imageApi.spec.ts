@@ -8,19 +8,19 @@ import app from '../index';
 
 const request = supertest(app);
 
-describe('GET /api/images', () => {
-  it('should return a status of 400', async () => {
+describe('GET /api/images', (): void => {
+  it('should return a status of 400', async (): Promise<void> => {
     const response = await request.get('/api/images');
     expect(response.status).toBe(400);
   });
 
-  it('should return 400 when called with a missing FILENAME', async () => {
+  it('should return 400 when called with a missing FILENAME', async (): Promise<void> => {
     const response = await request.get('/api/images?height=200&width=200');
     expect(response.status).toBe(400);
     expect(response.text).toBe('filename is missing!!!');
   });
 
-  it('should return 400 when called with a missing WIDTH parameter', async () => {
+  it('should return 400 when called with a missing WIDTH parameter', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=palmtunnel&height=200',
     );
@@ -28,7 +28,7 @@ describe('GET /api/images', () => {
     expect(response.text).toBe('width is missing!!!');
   });
 
-  it('should return 400 when called with a missing HEIGHT parameter', async () => {
+  it('should return 400 when called with a missing HEIGHT parameter', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=palmtunnel&width=200',
     );
@@ -36,7 +36,7 @@ describe('GET /api/images', () => {
     expect(response.text).toBe('height is missing!!!');
   });
 
-  it('should return 404 when called correctly but FILENAME does not exist', async () => {
+  it('should return 404 when called correctly but FILENAME does not exist', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=test&height=200&width=200',
     );
@@ -44,7 +44,7 @@ describe('GET /api/images', () => {
     expect(response.text).toBe('filename is not exist!!!');
   });
 
-  it('should return 400 when called with WIDTH is invalid', async () => {
+  it('should return 400 when called with WIDTH is invalid', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=palmtunnel&height=150&width=1a50',
     );
@@ -52,7 +52,7 @@ describe('GET /api/images', () => {
     expect(response.text).toBe('width is invalid!!!');
   });
 
-  it('should return 400 when called with HEIGHT is invalid', async () => {
+  it('should return 400 when called with HEIGHT is invalid', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=palmtunnel&height=15a0&width=150',
     );
@@ -60,14 +60,14 @@ describe('GET /api/images', () => {
     expect(response.text).toBe('height is invalid!!!');
   });
 
-  it('should return 200 if called correctly and image exist', async () => {
+  it('should return 200 if called correctly and image exist', async (): Promise<void> => {
     const response = await request.get(
       '/api/images?filename=palmtunnel&height=150&width=150',
     );
     expect(response.status).toBe(200);
   });
 
-  it('should created a thumb version of the image', async () => {
+  it('should created a thumb version of the image', async (): Promise<void> => {
     request
       .get('/api/images?filename=palmtunnel&height=100&width=100')
       .then(() =>
@@ -82,7 +82,7 @@ describe('GET /api/images', () => {
       );
   });
 
-  it('should created a thumb version of the image', async () => {
+  it('should created a thumb version of the image', async (): Promise<void> => {
     request
       .get('/api/images?filename=palmtunnel&height=100&width=150')
       .then(() => {

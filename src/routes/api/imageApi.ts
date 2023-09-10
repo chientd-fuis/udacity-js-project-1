@@ -9,7 +9,7 @@ import { resize } from '../../utils/functions/file';
 
 const imageApi: Router = express.Router();
 
-imageApi.get('/', async (req: Request, res: Response) => {
+imageApi.get('/', async (req: Request, res: Response): Promise<void> => {
   const imageReq: ImageInformationRequest = req.query;
   const error = await validateImage(imageReq);
   if (error != null) {

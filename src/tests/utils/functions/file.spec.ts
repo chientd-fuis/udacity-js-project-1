@@ -3,15 +3,15 @@ import { getImagePath, resize } from '../../../utils/functions/file';
 import { ImageInformation } from '../../../utils/interfaces/FileInformation';
 import sizeOf from 'image-size';
 
-describe('utils/funtions - file.ts', () => {
-  it('getImagePath - should return exactly path when input file name', () => {
+describe('utils/funtions - file.ts', (): void => {
+  it('getImagePath - should return exactly path when input file name', (): void => {
     const image = { filename: 'test', height: 0, width: 0 } as ImageInformation;
     expect(getImagePath(image)).toEqual(
       path.resolve(__dirname, '../../../../assets/images/full/test.jpg'),
     );
   });
 
-  it('resize - should return exactly path when input file name', async () => {
+  it('resize - should return exactly path when input file name', async (): Promise<void> => {
     const imageInfo = {
       filename: 'icelandwaterfall',
       height: 50,
@@ -23,7 +23,7 @@ describe('utils/funtions - file.ts', () => {
     expect(sizeOf(image).type).toEqual('jpg');
   });
 
-  it('resize - should return error when filename is not found', () => {
+  it('resize - should return error when filename is not found', (): void => {
     const imageInfo = {
       filename: 'test',
       height: 50,
@@ -34,7 +34,7 @@ describe('utils/funtions - file.ts', () => {
     });
   });
 
-  it('resize - should return error when filename is not found', () => {
+  it('resize - should return error when filename is not found', (): void => {
     const imageInfo = {
       filename: 'icelandwaterfall',
       height: NaN,
